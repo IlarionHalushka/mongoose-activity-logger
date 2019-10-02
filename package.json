@@ -1,0 +1,29 @@
+{
+  "name": "mongoose-activity-logger",
+  "version": "1.0.0",
+  "description": "Mongoose Activity Logger Plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IlarionHalushka/mongoose-activity-logger.git"
+  },
+  "keywords": [
+    "mongoose",
+    "plugin",
+    "logger",
+    "activity",
+    "mongoose-plugin",
+    "mongo",
+    "mongodb",
+    "logs"
+  ],
+  "author": "Ilarion Halushka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IlarionHalushka/mongoose-activity-logger/issues"
+  },
+  "homepage": "https://github.com/IlarionHalushka/mongoose-activity-logger#readme"
+}
