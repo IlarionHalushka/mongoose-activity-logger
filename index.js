@@ -1,24 +1,4 @@
-const env = process.env.NODE_ENV;
-
-const formatActionLog = ({ hook, ...rest }) => ({
-	action: hook,
-	env,
-	...rest,
-});
-
-const formatUpdateQuery = (_update) =>
-	Object.keys(_update).reduce(
-		(accumulator, key) =>
-			key.charAt(0) === '$' ? { ...accumulator, ..._update[key] } : { ...accumulator, [key]: _update[key] },
-		{},
-	);
-
-const logAction = (schema, options) => {
-	if (schema.methods.logAction) {
-		const actionLog = formatActionLog(options);
-		schema.methods.logAction(actionLog);
-	}
-};
+const LoggerModel = require('./models/Logger');
 
 const modelMiddlewares = ['save', 'remove'];
 
@@ -37,17 +17,27 @@ const queryMiddlewares = [
 	'findOneAndUpdate',
 ];
 
-exports.activityLoggerPlugin = function(schema) {
-	modelMiddlewares.forEach((hook) => {
-		schema.pre(hook, function(next) {
-			logAction(schema, { data: this, hook, collectionName: this.constructor.modelName });
+const formatUpdateQuery = (_update) =>
+	Object.keys(_update).reduce(
+		(accumulator, key) =>
+			key.charAt(0) === '$' ? { ...accumulator, ..._update[key] } : { ...accumulator, [key]: _update[key] },
+		{},
+	);
+
+// TODO also log process.env
+const logAction = (actionLog) => new LoggerModel(actionLog).save();
+
+module.exports = function(schema) {
+	modelMiddlewares.forEach((action) => {
+		schema.pre(action, function(next) {
+			logAction( { data: this, action, collectionName: this.constructor.modelName });
 
 			next();
 		});
 	});
 
-	queryMiddlewares.forEach((hook) => {
-		schema.pre(hook, function(next) {
+	queryMiddlewares.forEach((action) => {
+		schema.pre(action, function(next) {
 			const {
 				_update,
 				mongooseCollection: { collectionName },
@@ -57,7 +47,7 @@ exports.activityLoggerPlugin = function(schema) {
 
 			const data = _update && formatUpdateQuery(_update);
 
-			logAction(schema, { data, hook, collectionName, conditions, options });
+			logAction( { data, action, collectionName, conditions, options });
 
 			next();
 		});
