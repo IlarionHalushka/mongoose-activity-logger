@@ -1,5 +1,5 @@
 {
-  "name": "mongoose-activity-logger",
+  "name": "@hilarion/mongoose-activity-logger",
   "version": "1.0.0",
   "description": "Mongoose Activity Logger Plugin",
   "main": "index.js",
