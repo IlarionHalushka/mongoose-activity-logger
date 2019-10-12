@@ -1,5 +1,6 @@
-const LoggerModel = require('./models/Logger');
+const LoggerModel = require('./models/Logs');
 
+// TODO export all middlewares so that they can be accessed like action.SAVE
 const modelMiddlewares = ['save', 'remove'];
 
 // TODO add insertMany model middleware (it should be separate from query middlewares).

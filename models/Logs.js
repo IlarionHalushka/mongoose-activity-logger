@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const LoggerActionsSchema = new Schema(
+const LogsSchema = new Schema(
 	{
 		data: {
 			type: Object,
@@ -31,4 +31,4 @@ const LoggerActionsSchema = new Schema(
 	{ timestamps: true },
 );
 
-module.exports = mongoose.model('logs', LoggerActionsSchema);
+module.exports = mongoose.model('logs', LogsSchema);
