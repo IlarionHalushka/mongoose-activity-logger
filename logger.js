@@ -7,7 +7,6 @@ const logLevels = {
 
 const env = process.env.NODE_ENV;
 
-// TODO test this logger
 // TODO TODO TODO TODO this probably should be a separate repository for this kind of logger TODO TODO TODO TODO
 class Logger {
 	static saveLog({ level, message }) {
@@ -29,4 +28,4 @@ class Logger {
 	}
 }
 
-exports.default = Logger;
+module.exports = Logger;

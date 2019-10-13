@@ -16,12 +16,20 @@ Note: actions that don't modify documents (e.g. `find`, `findOne`) are not logge
 
 ### Viewing logs
 
-1. Import `Logs` model:
-
+ 1. Import `Logs` model:
 `const Logs = require('@hilarion/mongoose-activity-logger/models/Logger');`
-
-2. Query `Logs`: 
+ 
+ 2. Query `Logs`: 
 - by action: `Logs.find({ action: 'save' })`
 - by collectionName: `Logs.find({ collectionName: 'user' })`
 - by environment: `Logs.find({ env: 'local' })`
 - by createdAt timestamp: `Logs.find({ createdAt: { $gte: new Date("2019-10-01T00:00:00.000Z") } })`
+
+### Log manually
+
+1. Import `logger`:
+`const logger = require('@hilarion/mongoose-activity-logger/logger');`
+
+2. Usage: 
+- log message: `logger.log('some message'')`;
+- log error: `logger.error('some error'')`;
